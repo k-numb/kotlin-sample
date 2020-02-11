@@ -36,4 +36,13 @@ class TaskService(private val taskRepository: TaskRepository) {
         val updateTask = task.copy(content = taskUpdateForm.content, done = taskUpdateForm.done)
         taskRepository.save(updateTask)
     }
+
+    /**
+     * タスクを削除します。
+     */
+    fun deleteTask(taskId: Long) {
+        val task = taskRepository.findById(taskId).orElseThrow { NotFoundException("タスクが見つかりませんでした。") }
+        val deleteTask = task.copy()
+        taskRepository.delete(deleteTask)
+    }
 }

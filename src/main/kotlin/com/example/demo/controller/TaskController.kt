@@ -4,6 +4,7 @@ import com.example.demo.controller.form.TaskCreateForm
 import com.example.demo.controller.form.TaskUpdateForm
 import com.example.demo.model.Task
 import com.example.demo.service.TaskService
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -28,7 +29,7 @@ class TaskController(private val taskService: TaskService) {
     fun index(): MutableIterable<Task> = taskService.getTasks()
 
     /**
-     * タスクの新規作成をします。
+     * タスクを新規作成します。
      *
      * @return タスク作成結果
      */
@@ -39,13 +40,24 @@ class TaskController(private val taskService: TaskService) {
     }
 
     /**
-     * タスクの更新をします。
+     * タスクを更新します。
      *
      * @return タスク更新結果
      */
     @PatchMapping("/{id}")
     fun update(@PathVariable("id") taskId: Long, @RequestBody taskUpdateForm: TaskUpdateForm): Map<String, String> {
         taskService.updateTask(taskId, taskUpdateForm)
+        return mapOf("result" to "ok")
+    }
+
+    /**
+     * タスクを削除します。
+     *
+     * @return タスク削除結果
+     */
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable("id") taskId: Long): Map<String, String> {
+        taskService.deleteTask(taskId)
         return mapOf("result" to "ok")
     }
 }
