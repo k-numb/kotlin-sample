@@ -29,7 +29,7 @@ class TaskService(private val taskRepository: TaskRepository) {
     }
 
     /**
-     * タスクを更新します。
+     * 指定されたタスクを更新します。
      */
     fun updateTask(taskId: Long, taskUpdateForm: TaskUpdateForm) {
         val task = taskRepository.findById(taskId).orElseThrow { NotFoundException("タスクが見つかりませんでした。") }
@@ -38,11 +38,16 @@ class TaskService(private val taskRepository: TaskRepository) {
     }
 
     /**
-     * タスクを削除します。
+     * 指定されたタスクを削除します。
      */
     fun deleteTask(taskId: Long) {
         val task = taskRepository.findById(taskId).orElseThrow { NotFoundException("タスクが見つかりませんでした。") }
         val deleteTask = task.copy()
         taskRepository.delete(deleteTask)
     }
+
+    /**
+     * 指定されたタスク詳細を取得します。
+     */
+    fun detailTask(taskId: Long): Task = taskRepository.findById(taskId).orElseThrow { NotFoundException("タスクが見つかりませんでした。") }
 }

@@ -40,7 +40,7 @@ class TaskController(private val taskService: TaskService) {
     }
 
     /**
-     * タスクを更新します。
+     * 指定されたタスクを更新します。
      *
      * @return タスク更新結果
      */
@@ -51,7 +51,7 @@ class TaskController(private val taskService: TaskService) {
     }
 
     /**
-     * タスクを削除します。
+     * 指定されたタスクを削除します。
      *
      * @return タスク削除結果
      */
@@ -60,4 +60,12 @@ class TaskController(private val taskService: TaskService) {
         taskService.deleteTask(taskId)
         return mapOf("result" to "ok")
     }
+
+    /**
+     * 指定されたタスク詳細を取得します。
+     *
+     * @return タスク詳細
+     */
+    @GetMapping("/{id}")
+    fun detail(@PathVariable("id") taskId: Long): Task = taskService.detailTask(taskId)
 }
