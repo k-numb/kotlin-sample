@@ -14,10 +14,10 @@ import javax.persistence.Table
 data class Task(
     /** タスクID */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
     /** 内容 */
     val content: String,
     /** 進捗 */
-    val done: Boolean
+    val done: Boolean = false
 )
