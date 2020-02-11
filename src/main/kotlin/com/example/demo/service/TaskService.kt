@@ -1,6 +1,8 @@
 package com.example.demo.service
 
 import com.example.demo.controller.form.TaskCreateForm
+import com.example.demo.controller.form.TaskUpdateForm
+import com.example.demo.exception.NotFoundException
 import com.example.demo.model.Task
 import com.example.demo.repository.TaskRepository
 import org.springframework.stereotype.Service
@@ -24,5 +26,14 @@ class TaskService(private val taskRepository: TaskRepository) {
     fun createTask(taskCreateForm: TaskCreateForm) {
         val newTask = Task(content = taskCreateForm.content)
         taskRepository.save(newTask)
+    }
+
+    /**
+     * タスクを更新します。
+     */
+    fun updateTask(taskId: Long, taskUpdateForm: TaskUpdateForm) {
+        val task = taskRepository.findById(taskId).orElseThrow { NotFoundException("タスクが見つかりませんでした。") }
+        val updateTask = task.copy(content = taskUpdateForm.content, done = taskUpdateForm.done)
+        taskRepository.save(updateTask)
     }
 }
