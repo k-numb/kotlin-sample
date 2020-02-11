@@ -6,10 +6,18 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 
+/**
+ * タスクテーブルのモデルクラス
+ */
 @Entity
 @Table(name = "tasks")
-data class Task(@Id
-                @GeneratedValue(strategy = GenerationType.AUTO)
-                val id: Long,
-                val content: String,
-                val done: Boolean)
+data class Task(
+    /** タスクID */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long,
+    /** 内容 */
+    val content: String,
+    /** 進捗 */
+    val done: Boolean
+)
