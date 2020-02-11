@@ -1,0 +1,9 @@
+version: '2'
+services:
+  demo-postgres:
+    container_name: demo-postgres
+    image: postgres:10.11-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - "./tools/db/initdb:/docker-entrypoint-initdb.d"
