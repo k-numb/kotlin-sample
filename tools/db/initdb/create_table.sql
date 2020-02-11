@@ -1,7 +1,7 @@
 create table tasks (
-  id bigint not null,
-  content text not null,
-  done Boolean not null,
+  id serial,
+  content VARCHAR(100) not null,
+  done Boolean not null default false,
   primary key(id)
 );
 
